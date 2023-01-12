@@ -1,43 +1,22 @@
 const express = require('express');
+const userRouter = require('./rooter/user')
 const { send } = require('express/lib/response');
 
 const app = express();
+
+app.use(express.json()) // for parsing application/json
+app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
 const port = 8012;
 
 
 app.get('/', function(request, response){
-    response.send('ello world')
+    response.send('Hello world')
 })
 
-app.get('/about', function(request, response){
-    response.send('About my self')
-})
 
-const user = {
-    id : 182192819812,
-    name: "I Putu Bayu Gelgel Wiyantara",
-    class: "XI RPL",
-    born: "23 - 10 - 2005"
-}
 
-app.route('/users/:id')
-    .get(function(response){
-        response.json(user)
-    })
-    .post(function(request, response) {
-        response.send("Post user")
-    })
-    .put(function(request, response) {
-        if (request.params.id == this.user.id) {
-            response.json(this.user)
-        }
-    })
-    .delete(function(request, response) {
-        if (request.params.id == this.user.id) {
-            response.send("Delete user")
-        }
-    })
+app.use(userRouter)
 
 app.listen(port, function(){
     console.log('server is start')
