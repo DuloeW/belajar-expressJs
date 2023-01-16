@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="containner-update">
+        <div class="container-old-data">
+            <h2>Data sebelumnya</h2>
+            <Label>Nama</Label>
+            <span><%= user.nama_user %> </span>
+            <Label>Kelas</Label>
+            <span><%= user.kelas_user %> </span>
+            <Label>Born</Label>
+            <span><%= user.tanggal_lahir %> </span>
+            <Label>Email</Label>
+            <span><%= user.email_user %> </span>
+        </div>
+        <div class="containner-new-data">
+            <h2>Data baru</h2>
+            <form action="/user/update-user/<%= user.id %> " method="post">
+                <label for="">Nama</label>
+                <input type="text" id="name" name="name" value="<%= user.nama_user %> " required>
+                <label for="">Kelas</label>
+                <input type="text" id="class" name="class" value="<%= user.kelas_user %> " required>
+                <label for="">Born</label>
+                <input type="date" name="born" id="born" value="<%= user.tanggal_lahir %> " required>
+                <label for="">Email</label>
+                <input type="email" name="email" id="email" value="<%= user.email_user %> " required>
+                <button type="submit">kirim</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

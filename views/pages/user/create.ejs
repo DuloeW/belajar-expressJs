@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/style.css">
+    <title>create user</title>
+</head>
+<body>
+    <h1>Register User</h1>
+    <form action="/users" method="post">
+        <div class="input-group">
+            <label for="name">name :</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div class="input-group">
+            <label for="class">class :</label>
+            <input type="text" id="class" name="class" required>
+        </div>
+        <div class="input-group">
+            <label for="born">born :</label>
+            <input type="date" name="born" id="born" required>
+        </div>
+        <div class="input-group">
+            <label for="email">email :</label>
+            <input type="email" name="email" id="email" required>
+        </div>
+        <div class="input-group">
+            <label for="password">password :</label>
+            <input type="password" name="password" id="password" required>
+        </div>
+        <button type="submit">submit</button>
+        <a href="/users">back</a>
+    </form>
+</body>
+</html>

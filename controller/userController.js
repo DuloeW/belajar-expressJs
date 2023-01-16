@@ -1,69 +1,95 @@
+const {v4: uuidv4} = require('uuid')
 const jsonRes = require('../setting/responseJson')
-const users = [
-    {
-        id: 1,
-        name: "I Putu Bayu Gelgel Wiyantara",
-        class: "XI RPL",
-        born: "23 - 10 - 2005",
-      },
-      {
-        id: 2,
-        name: "I Putu Bayu Gelgel Wiyantara",
-        class: "XI RPL",
-        born: "23 - 10 - 2005",
-      },
-      {
-        id: 3,
-        name: "I Putu Bayu Gelgel Wiyantara",
-        class: "XI RPL",
-        born: "23 - 10 - 2005",
-      },
-];
+const User = require('../model/userModel')
+const { Sequelize } = require('sequelize').Sequelize
+
 
 module.exports = {
     get: function (request, response) {
-        if (users.length > 0) {
-            response.json(jsonRes.index(users, request, true, ""));
-        } else {
-            response.json({
-                status: false,
-                message: "Data user masih kosong"
-            })
-        }
-      },
-    post: function (request, response) {
-        const newUser = request.body;
-        if(newUser.id == null) throw response.status(400).json({message: "Bad request"})
-        const isExist = users.find((user) => user.id == newUser.id);
-        if (isExist) {
-          return response.status(400).send({ message: "User is exist!" });
-        }
-        users.push(newUser);
-        response.json(jsonRes.index(users, request, true, "Berhasil menambahakan"));
-      },
-    put: function (request, response) {
-        const id = request.body.id;
-        const isExist = users.find(user => user.id == id)
-        if(!isExist) {
-            throw response.status(404).send({message: 'Id not found  '})
-        }
-        const test = users.filter((user) => {
-          if (user.id == id) {
-            user.name = request.body.name;
-            user.class = request.body.class;
-            user.born = request.body.born;
-            return user;
+      let keyword = request.query.keyword
+      if(keyword) {
+        User.findAll({
+          attributes: ['id', 'nama_user'],
+          where: {
+            nama_user: {
+              [Sequelize.Op.like]: `%${keyword}%`
+            }
           }
-        });
-        response.json(jsonRes.index(users, request, true, "Berhasil mengubah"));
-      },
-    delete: function (request, response) {
-        const isExist = users.find((user) => user.id == request.params.id);
-        if (!isExist) {
-          return response.status(404).send({ message: "Id not found" });
-        }
-        const test = users.findIndex((obj) => obj.id == request.params.id);
-        users.splice(test, 1);
-        response.status(200).json(jsonRes.index(users, request, true, "Berhasil menghapus"));
+      }).then(user => {
+          const users = user;
+          response.render('pages/user/index', {users})
+        }).catch(err => {
+          console.log(err);
+        })
+      } else {
+        User.findAll({
+          attributes: ['id', 'nama_user'],
+      }).then(user => {
+          const users = user;
+          response.render('pages/user/index', {users})
+        }).catch(err => {
+          console.log(err);
+        })
       }
+    },
+    getId: function(request, response) {
+      const id = request.params.id;
+      User.findByPk(id).then(user => {
+        const data = user
+        response.render('pages/user/show', {user: data})
+      }).catch(err => {
+        console.log(err);
+      });
+    },
+    create: function (request, response) {
+      response.render('pages/user/create')
+    },
+    post: function (request, response) {
+      const user = User.build({
+        id: uuidv4(),
+        nama_user: request.body.name,
+        kelas_user: request.body.class,
+        tanggal_lahir: request.body.born,
+        email_user: request.body.email,
+        password: request.body.password
+      })
+
+      user.save().then(user => {
+        console.log(user.get({ plain: true }));
+        response.redirect('/users')
+      }).catch(err => {
+        console.log(err);
+      })
+    },
+    update: function(request, response) {
+      const id = request.params.id;
+      User.findByPk(id).then(user => {
+        const data = user;
+        console.log(data);
+        response.render('pages/user/update', {user: data})
+      })
+    },
+    put: function(request, response) {
+      const id = request.params.id;
+      console.log(request.body.name);
+      User.findByPk(id).then(user => {
+        user.nama_user = request.body.name
+        user.kelas_user = request.body.class
+        user.tanggal_lahir = request.body.born
+        user.email_user = request.body.email
+        user.save().then(response.redirect('/users'))
+      }).catch(err => {
+        console.log(`cannot find with user ${id}`);
+      })
+    },
+    delete: function (request, response) {
+      const id = request.params.id;
+      User.destroy({
+        where: {
+          id: id
+        }
+      }).then(() => {
+        response.redirect('/users')
+      })
+    }
 }

@@ -7,8 +7,14 @@ router
   .get(userControler.get)
   .post(userControler.post);
 
-router.put("/users", userControler.put);
+router.get('/users/create', userControler.create)
 
-router.delete("/users/:id", userControler.delete);
+router.get('/users/:id', userControler.getId)
+
+router.get("/users/update/:id", userControler.update);
+
+router.post("/user/update-user/:id", userControler.put)
+
+router.get("/users/delete/:id", userControler.delete)
 
 module.exports = router;

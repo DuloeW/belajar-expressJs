@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/style.css">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Detail user <%= user.id %> </h1>
+    <ul>
+        <li>Name: <strong><%= user.nama_user %></strong> </li>
+        <li>Class: <strong><%= user.kelas_user %></strong> </li>
+        <li>Born: <strong><%= user.tanggal_lahir %></strong> </li>
+        <li>Email: <strong><%= user.email_user %></strong> </li>
+    </ul>
+    <a href="/users">kembali</a>
+</body>
+</html>
