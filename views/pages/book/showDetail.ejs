@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/book.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="main">
+        <div class="containner-details">
+            <img src="/assets/uploud/<%= book.gambar %> " alt="">
+            <div class="containner-detail-detail-buku">
+                <div class="detail-buku">
+                    <h4>Nama Penulis</h4>
+                    <p>
+                        <%= book.nama_penulis %>
+                    </p>
+                </div>
+                <div class="detail-buku">
+                    <h4>Judul Buku</h4>
+                    <p>
+                        <%= book.judul %>
+                    </p>
+                </div>
+                <div class="detail-buku">
+                    <h4>Tahun Rilis</h4>
+                    <p>
+                        <%= book.tahun_rilis %>
+                    </p>
+                </div>
+            </div>
+            <div class="deskripsi">
+                <h4>Deskripsi</h4>
+                <p>
+                    <%= book.deskripsi%>
+                </p>
+            </div>
+            <div class="button-back">
+                <button></button>
+                <button></button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

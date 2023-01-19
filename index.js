@@ -1,5 +1,6 @@
 const express = require('express');
 const userRouter = require('./rooter/user')
+const bookRouter = require('./rooter/book')
 const { send } = require('express/lib/response');
 
 const app = express();
@@ -8,8 +9,6 @@ app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
  
 const port = 8000
-
-const mysql = require('mysql2')
 
 const requestTime = function (request, response, next) {
     request.requestTime = Date.now().toFixed()
@@ -35,6 +34,7 @@ app.get('/about', function(request, response) {
 })
 
 app.use(userRouter)
+app.use(bookRouter)
 
 
 app.listen(port, function(){

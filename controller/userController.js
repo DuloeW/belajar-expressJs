@@ -1,5 +1,4 @@
 const {v4: uuidv4} = require('uuid')
-const jsonRes = require('../setting/responseJson')
 const User = require('../model/userModel')
 const { Sequelize } = require('sequelize').Sequelize
 

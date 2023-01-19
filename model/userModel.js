@@ -1,21 +1,7 @@
 const Sequelize = require('sequelize');
+const sequelize = require("../db/mysql")
 
-const sequileze = new Sequelize('belajar_express', 'root', '', {
-    host: 'localhost',
-    dialect: 'mysql'
-})
-
-sequileze
-  .authenticate()
-  .then(() => {
-    console.log('Connection has been established successfully.');
-  })
-  .catch(err => {
-    console.error('Unable to connect to the database:', err);
-  });
-
-const User = sequileze.define('user', {
-  // Model attributes are defined here
+const User = sequelize.define('user', {
   id: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -53,6 +39,6 @@ const User = sequileze.define('user', {
 });
 
 // `sequelize.define` also returns the model
-console.log(User === sequileze.models.user); // true
+console.log(User === sequelize.models.user); // true
 
 module.exports = User
