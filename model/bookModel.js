@@ -36,6 +36,6 @@ const Book = sequelize.define('books', {
 }, {
 
 })
-console.log(Book === sequelize.models.book); // true
+console.log(Book === sequelize.models.books); // true
 
 module.exports = Book

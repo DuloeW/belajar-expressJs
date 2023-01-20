@@ -1,9 +1,6 @@
 const { v4: uuidv4 } = require("uuid");
-const multer = require('multer')
 const Book = require("../model/bookModel");
-const path = require("path");
-const { Sequelize } = require('sequelize').Sequelize
-
+const { Sequelize } = require("sequelize").Sequelize;
 
 module.exports = {
   get: function (request, response) {
@@ -12,9 +9,9 @@ module.exports = {
     if (keyword) {
       Book.findAll({
         where: {
-            judul: {
-                [Sequelize.Op.like]: `%${keyword}%`,
-            }
+          judul: {
+            [Sequelize.Op.like]: `%${keyword}%`,
+          },
         },
       })
         .then((book) => {
@@ -25,8 +22,7 @@ module.exports = {
           console.log(err);
         });
     } else {
-      Book.findAll({
-      })
+      Book.findAll({})
         .then((book) => {
           const books = book;
           response.render("pages/book/index", { books });
@@ -36,38 +32,36 @@ module.exports = {
         });
     }
   },
-  create: function(request, response) {
-    response.render('pages/book/create')
+  create: function (request, response) {
+    response.render("pages/book/create");
   },
-  post: function(request, response) {
-    const file = request.files.file;
-    const ext = path.extname(file.name)
-    const fileName = file.md5 + ext;
-
-    file.mv(`./public/uploud/${fileName}`)
-    const book = Book.build({
+  post: function (request, response) {
+    const file = request.file;
+    Book.create({
       id: uuidv4(),
       nama_penulis: request.body.penulis,
       judul: request.body.judul,
       tahun_rilis: request.body.tahun,
       kode: request.body.kode,
-      gambar: file,
-      deskripsi: request.body.deskripsi
-    })
-
-    book.save().then(book => {
-      console.log(book);
-      response.json({book: book}).send()
-      // response.redirect('/books')
+      gambar: file.originalname,
+      deskripsi: request.body.deskripsi,
+    }).then((book) => {
+      console.log(book.get({ plain: true }));
+      response.status(201).json({ msg: "Book Created Successfuly" , img: book.gambar});
+    }).catch((err) => {
+      console.log(err);
+      response.status(500).json({ msg: err.toString()});
     })
   },
-  detail: function(request, response) {
+  detail: function (request, response) {
     const id = request.params.id;
-    Book.findByPk(id).then(book => {
-      const data = book;
-      response.render('pages/book/showDetail', {book: data})
-    }).catch(err => {
-      response.json({message: err.toString()})
-    })
-  }
+    Book.findByPk(id)
+      .then((book) => {
+        const data = book;
+        response.render("pages/book/showDetail", { book: data });
+      })
+      .catch((err) => {
+        response.json({ message: err.toString() });
+      });
+  },
 };

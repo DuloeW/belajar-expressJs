@@ -13,7 +13,7 @@
     <div class="containner-main">
         <div class="containner-form-tambah">
             <form action="/books" method="post" enctype="multipart/form-data">
-                <label for="judpenulisul">Penulis</label>
+                <label for="penulis">Penulis</label>
                 <input type="text" name="penulis" id="penulis">
 
                 <label for="judul">Judul</label>
@@ -26,14 +26,14 @@
                 <input type="text" name="kode" id="kode">
 
                 <label for="gambar">Gambar</label>
-                <input type="file" name="file" id="gambar">
+                <input type="file" name="gambar" id="gambar">
 
                 <label for="deskripsi">Deskripsi</label>
                 <textarea name="deskripsi" id="deskripsi" cols="30" rows="10"></textarea>
 
                 <div class="containner-list-bottom">
-                    <button>kembali</button>
-                    <button type="submit"><a href="/books">kirim</a></button>
+                    <a href="/books">kembali</a>
+                    <a href="/books">kirim</a>
                 </div>
             </form>
         </div>

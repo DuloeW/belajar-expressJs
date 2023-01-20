@@ -17,32 +17,36 @@
                 </form>
             </div>
         </div>
-        <div class="containner-list-books">
-            <a href="/books/create" id="tambah">Tambah</a>
-            <% if (books.length > 0) {%> 
-                <% books.forEach(function(book) { %> 
-                    <div class="books">
-                        <div class="books-img-edit">
-                            <img src="/assets/uploud/<%= book.gambar %> " alt="gambar buku">
-                            <div class="containner-buton-edit">
-                                <button>Edit</button>
-                                <button>Hapus</button>
+        <div class="containner-tambah">
+            <a href="/books/create">Tambah</a>
+        </div>
+        <div class="containner-of-list-books">
+            <div class="containner-list-books">
+                <% if (books.length > 0) {%> 
+                    <% books.forEach(function(book) { %> 
+                        <div class="books">
+                            <div class="books-img-edit">
+                                <img src="/assets/uploud/<%= book.gambar %> " alt="gambar buku">
+                                <div class="containner-buton-edit">
+                                    <button>Edit</button>
+                                    <button>Hapus</button>
+                                </div>
+                            </div>
+                            <div class="detail-book">
+                                <h3><%= book.judul %> </h3>
+                                <h4><%= book.nama_penulis %> </h4>
+                                <p><%= book.kode %> </p>
+                                <p><%= book.deskripsi %> </p>
+                                <a href="/books/<%= book.id %> ">detail</a>
                             </div>
                         </div>
-                        <div class="detail-book">
-                            <h3><%= book.judul %> </h3>
-                            <h4><%= book.nama_penulis %> </h4>
-                            <p><%= book.kode %> </p>
-                            <p><%= book.deskripsi %> </p>
-                            <a href="/books/<%= book.id %> ">detail</a>
-                        </div>
+                    <% }) %> 
+                <% } else {%>
+                    <div class="data-kosong">
+                        <p>Data Kosong</p>
                     </div>
-                <% }) %> 
-            <% } else {%>
-                <div class="data-kosong">
-                    <p>Data Kosong</p>
-                </div>
-            <% } %> 
+                <% } %> 
+            </div>
         </div>
     </div>
     <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
