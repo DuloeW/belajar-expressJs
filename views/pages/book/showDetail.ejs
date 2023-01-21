@@ -12,7 +12,7 @@
 <body>
     <div class="main">
         <div class="containner-details">
-            <img src="/assets/uploud/<%= book.gambar %> " alt="">
+            <img src="/assets/uploud/<%= book.gambar %> " alt="<%= book.gambar %> ">
             <div class="containner-detail-detail-buku">
                 <div class="detail-buku">
                     <h4>Nama Penulis</h4>
@@ -34,14 +34,13 @@
                 </div>
             </div>
             <div class="deskripsi">
-                <h4>Deskripsi</h4>
+                <h2>Deskripsi</h2>
                 <p>
                     <%= book.deskripsi%>
                 </p>
             </div>
             <div class="button-back">
-                <button></button>
-                <button></button>
+                <a href="/books">kembali</a>
             </div>
         </div>
     </div>

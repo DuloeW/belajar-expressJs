@@ -47,7 +47,7 @@ module.exports = {
       deskripsi: request.body.deskripsi,
     }).then((book) => {
       console.log(book.get({ plain: true }));
-      response.status(201).json({ msg: "Book Created Successfuly" , img: book.gambar});
+      response.redirect("/books")
     }).catch((err) => {
       console.log(err);
       response.status(500).json({ msg: err.toString()});
@@ -64,4 +64,33 @@ module.exports = {
         response.json({ message: err.toString() });
       });
   },
+  update: function(request, response) {
+    Book.findByPk(request.params.id).then(book => {
+      const data = book;
+      response.render("pages/book/update", {book: data})
+    }).catch(err => {
+      response.status(404).json({message:`id ${id} not found`})
+    })
+  },
+  put: function(request, response) {
+    const fileGambar = request.file
+    const id = request.params.id
+    Book.findByPk(id).then(book => {
+      book.nama_penulis = response.body.penulis
+      book.judul = response.body.judul
+      book.tahun_rilis = response.body.tahun
+      book.gambar = fileGambar.originalname
+      book.deskripsi = request.body.deskripsi
+      book.save().then(() => {
+        // response.redirect("/books")
+        response.status(201).json({data: book})
+      }).catch(err => {
+        console.log("Cannot update");
+        response.status(400).json({msg: err.toString()})
+      })
+    }).catch(err => {
+      console.log(`cannot find with user ${id}`);
+      response.status(400).json({msg: err.toString()})
+    })
+  }
 };
