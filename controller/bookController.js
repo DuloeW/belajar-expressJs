@@ -35,9 +35,9 @@ module.exports = {
   create: function (request, response) {
     response.render("pages/book/create");
   },
-  post: function (request, response) {
+  post: async function (request, response) {
     const file = request.file;
-    Book.create({
+    await Book.create({
       id: uuidv4(),
       nama_penulis: request.body.penulis,
       judul: request.body.judul,
@@ -68,29 +68,42 @@ module.exports = {
     Book.findByPk(request.params.id).then(book => {
       const data = book;
       response.render("pages/book/update", {book: data})
-    }).catch(err => {
+    }).catch(() => {
       response.status(404).json({message:`id ${id} not found`})
     })
   },
   put: function(request, response) {
-    const fileGambar = request.file
     const id = request.params.id
-    Book.findByPk(id).then(book => {
-      book.nama_penulis = response.body.penulis
-      book.judul = response.body.judul
-      book.tahun_rilis = response.body.tahun
+    const fileGambar = request.file
+    Book.findByPk(id)
+    .then(book => {
+      book.nama_penulis = request.body.penulis
+      book.judul = request.body.judul
+      book.tahun_rilis = request.body.tahun
+      book.kode = request.body.kode
       book.gambar = fileGambar.originalname
-      book.deskripsi = request.body.deskripsi
+      book.deskripsi = request.body.deskripsi 
       book.save().then(() => {
-        // response.redirect("/books")
-        response.status(201).json({data: book})
+        response.redirect("/books")
       }).catch(err => {
-        console.log("Cannot update");
+        console.log("error save");
+        console.log(err);
         response.status(400).json({msg: err.toString()})
       })
     }).catch(err => {
-      console.log(`cannot find with user ${id}`);
-      response.status(400).json({msg: err.toString()})
+      console.log("error id not found");
+      console.log(err);
+      response.status(404).json({msg: err.toString()})
+    })
+  },
+  delete: function(request, response) {
+    const id = request.params.id
+    Book.destroy({
+      where: {
+        id: id
+      }
+    }).then(() => {
+      response.redirect('/books')
     })
   }
 };

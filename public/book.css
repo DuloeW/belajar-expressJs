@@ -181,7 +181,7 @@ img {
 }
 
 .containner-details img:hover {
-  transform: scale(5);
+  transform: scale(3) translateY(50%);
   border-radius: 10px;
 }
 

@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="main-update">
-        <form action="/books/update-book/<%= book.id %> " method="post">
+        <form action="/books/update/<%= book.id %>" method="post">
             <div class="containner-input-update">
                 <label for="">Nama Penulis</label>
                 <input type="text" name="penulis" value="<%= book.nama_penulis %> ">
@@ -22,6 +22,10 @@
                 <input type="date" name="tahun" value="<%= book.tahun_rilis %> ">
             </div>
             <div class="containner-input-update">
+                <label for="">Kode</label>
+                <input type="text" name="kode" value="<%= book.kode %> ">
+            </div>
+            <div class="containner-input-update">
                 <label for="">Gambar</label>
                 <input type="file" name="gambar" value="<%= book.gambar %> ">
             </div>
@@ -29,7 +33,6 @@
                 <label for="">Deskripsi</label>
                 <textarea name="deskripsi" id="" cols="30" rows="10" placeholder="<%= book.deskripsi %> "></textarea>
             </div>
-            <!-- <a href="/books">Ubah</a> -->
             <button type="submit">ubah</button>
         </form>
     </div>
