@@ -11,27 +11,27 @@
         <form action="/books/update/<%= book.id %>" method="post" enctype="multipart/form-data">
             <div class="containner-input-update">
                 <label for="">Nama Penulis</label>
-                <input type="text" name="penulis" value="<%= book.nama_penulis %> ">
+                <input type="text" name="penulis" value="<%= book.nama_penulis %> " required>
             </div>
             <div class="containner-input-update">
                 <label for="">Judul Buku</label>
-                <input type="text" name="judul" value="<%= book.judul %> ">
+                <input type="text" name="judul" value="<%= book.judul %> " required>
             </div>
             <div class="containner-input-update">
                 <label for="">Tahun Rilis</label>
-                <input type="date" name="tahun" value="<%= book.tahun_rilis %> ">
+                <input type="date" name="tahun" value="<%= book.tahun_rilis %> " required>
             </div>
             <div class="containner-input-update">
                 <label for="">Kode</label>
-                <input type="text" name="kode" value="<%= book.kode %> ">
+                <input type="text" name="kode" value="<%= book.kode %> " minlength="4" maxlength="4" required>
             </div>
             <div class="containner-input-update">
                 <label for="">Gambar</label>
-                <input type="file" name="gambar" value="<%= book.gambar %> ">
+                <input type="file" name="gambar" value="<%= book.gambar %> " required>
             </div>
             <div class="containner-input-update">
                 <label for="">Deskripsi</label>
-                <textarea name="deskripsi" id="" cols="30" rows="10" placeholder="<%= book.deskripsi %> "></textarea>
+                <textarea name="deskripsi" id="" cols="30" rows="10" value="<%= book.deskripsi %> required"></textarea>
             </div>
             <button type="submit">ubah</button>
         </form>

@@ -10,11 +10,14 @@ app.use(express.urlencoded({ extended: true })) // for parsing application/x-www
  
 const port = 8000
 
+const cors = require('cors')
+
 const requestTime = function (request, response, next) {
     request.requestTime = Date.now().toFixed()
     next()
   }
   
+app.use(cors())
 app.use(requestTime)
 
 app.set('view engine', 'ejs')
