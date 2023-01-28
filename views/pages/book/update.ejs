@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="main-update">
-        <form action="/books/update/<%= book.id %>" method="post">
+        <form action="/books/update/<%= book.id %>" method="post" enctype="multipart/form-data">
             <div class="containner-input-update">
                 <label for="">Nama Penulis</label>
                 <input type="text" name="penulis" value="<%= book.nama_penulis %> ">
